@@ -3,7 +3,7 @@ package item.data.entity.item
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 
-data class BookSeaction(
+data class ItemSubData(
     val title: String,
     val people: List<Person>,
     val abstract: String,
@@ -22,11 +22,4 @@ data class BookSeaction(
     val extra: String,
     val dateAdded: LocalDateTime,
     val modifier: LocalDateTime,
-    val series: String,
-    val volume: UInt,
-    val numberOFVolumes: UInt,
-    val edition: String,
-    val place: String,
-    val pages: IntRange,
-    val language: String,
-)
+) : ZoteroItem

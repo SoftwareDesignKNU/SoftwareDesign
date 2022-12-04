@@ -8,9 +8,9 @@ sealed interface AdvancedSearchEvent {
     @JvmInline
     value class MatchAllChangeSearchEvent(val marchAll: Boolean) : AdvancedSearchEvent
 
-    data class QueryConditionChangeSearchEvent(val queryId: UInt, val queryCondition: Condition)
+    data class QueryConditionChangeSearchEvent(val queryId: UInt, val queryCondition: Condition) : AdvancedSearchEvent
 
-    data class QuerySearchFieldChangeSearchEvent(val queryId: UInt, val searchField: String)
+    data class QuerySearchFieldChangeSearchEvent(val queryId: UInt, val searchField: String) : AdvancedSearchEvent
 
-    data class QuerySearchValueChangeSearchEvent(val queryId: UInt, val searchValue: String)
+    data class QuerySearchValueChangeSearchEvent(val queryId: UInt, val searchValue: String) : AdvancedSearchEvent
 }
