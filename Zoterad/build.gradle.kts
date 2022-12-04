@@ -36,6 +36,11 @@ kotlin {
         binaries.executable()
     }
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+            }
+        }
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)

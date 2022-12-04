@@ -1,4 +1,4 @@
-package auth.presentation
+package auth.login.presentation
 
 import androidx.compose.runtime.Composable
 

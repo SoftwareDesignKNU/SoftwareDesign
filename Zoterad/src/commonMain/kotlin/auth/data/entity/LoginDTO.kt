@@ -1,4 +1,4 @@
-package auth.data
+package auth.data.entity
 
 data class LoginDTO(
     val emailOrUsername: String,

@@ -1,4 +1,4 @@
-package auth.data
+package auth.data.entity
 
 data class RegisterDTO(
     val firstName: String,

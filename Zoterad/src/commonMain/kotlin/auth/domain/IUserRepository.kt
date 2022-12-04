@@ -1,16 +1,15 @@
 package auth.domain
 
-import auth.data.LoginDTO
-import auth.data.RegisterDTO
-import auth.data.User
-import kotlinx.coroutines.flow.Flow
+import auth.data.entity.LoginDTO
+import auth.data.entity.RegisterDTO
+import auth.data.entity.User
 
 interface IUserRepository {
     suspend fun login(loginRequestData: LoginDTO): Result<String>
     suspend fun register(registerRequestData: RegisterDTO): Result<String>
     suspend fun getUserByEmail(email: String): Result<User>
     suspend fun getUserByUsername(username: String): Result<User>
-    fun getUsers(): Result<Flow<User>>
+    suspend fun getUsers(): Result<List<User>>
     suspend fun sendPasswordChangeRequest(email: String): Result<Nothing>
     suspend fun sendPasswordConfirmation(otp: String): Result<Nothing>
 }

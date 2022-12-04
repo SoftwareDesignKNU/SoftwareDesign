@@ -2,14 +2,14 @@ package auth.data
 
 import auth.data.client.HttpClient
 import auth.data.database.Database
+import auth.data.entity.LoginDTO
+import auth.data.entity.RegisterDTO
+import auth.data.entity.User
 import auth.domain.IUserRepository
-import common.data.secure_storage.SecureDataStore
-import kotlinx.coroutines.flow.Flow
 
 class UserRepository(
     private val database: Database,
     private val client: HttpClient,
-    private val secureDataStore: SecureDataStore,
 ) : IUserRepository {
     override suspend fun login(loginRequestData: LoginDTO): Result<String> {
         TODO(
@@ -32,7 +32,7 @@ class UserRepository(
         TODO("Not yet implemented")
     }
 
-    override fun getUsers(): Result<Flow<User>> {
+    override suspend fun getUsers(): Result<List<User>> {
         TODO("Not yet implemented")
     }
 
