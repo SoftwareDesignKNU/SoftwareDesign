@@ -1,4 +1,4 @@
-package auth.data.database
+package common.data.database
 
 class Database {
 }

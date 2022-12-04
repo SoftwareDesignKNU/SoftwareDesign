@@ -1,7 +1,7 @@
 package auth.data
 
-import auth.data.client.HttpClient
-import auth.data.database.Database
+import common.data.client.HttpClient
+import common.data.database.Database
 import auth.data.entity.LoginDTO
 import auth.data.entity.RegisterDTO
 import auth.data.entity.User

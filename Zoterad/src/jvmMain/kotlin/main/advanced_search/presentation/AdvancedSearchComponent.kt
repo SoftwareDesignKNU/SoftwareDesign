@@ -24,8 +24,7 @@ class AdvancedSearchComponent(
                 val changedQuery = searchQueries[advancedSearchEvent.queryId.toInt()].copy(
                     condition = advancedSearchEvent.queryCondition
                 )
-                searchQueries.removeAt(advancedSearchEvent.queryId.toInt())
-                searchQueries.add(changedQuery)
+                searchQueries[advancedSearchEvent.queryId.toInt()] = changedQuery
                 advancedSearchState = advancedSearchState.copy(
                     searchQueries = searchQueries
                 )

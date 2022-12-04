@@ -1,4 +1,4 @@
-package auth.data.client
+package common.data.client
 
 class HttpClient {
 }
