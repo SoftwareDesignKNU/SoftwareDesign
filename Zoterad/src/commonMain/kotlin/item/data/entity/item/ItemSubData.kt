@@ -22,4 +22,4 @@ data class ItemSubData(
     val extra: String,
     val dateAdded: LocalDateTime,
     val modifier: LocalDateTime,
-) : ZoteroItem
+)
