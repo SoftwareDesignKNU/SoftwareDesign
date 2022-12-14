@@ -10,6 +10,7 @@ interface IUserRepository {
     suspend fun getUserByEmail(email: String): Result<User>
     suspend fun getUserByUsername(username: String): Result<User>
     suspend fun getUsers(): Result<List<User>>
-    suspend fun sendPasswordChangeRequest(email: String): Result<Nothing>
-    suspend fun sendPasswordConfirmation(otp: String): Result<Nothing>
+    suspend fun sendPasswordChangeRequest(email: String): Result<String>
+    suspend fun sendPasswordConfirmation(otp: String): Result<Unit>
+    suspend fun changePassword(email: String, newPassword: String): Result<String>
 }

@@ -7,5 +7,5 @@ sealed interface LoginEvent {
     object LoginButtonClickLoginEven : LoginEvent
     value class PasswordChangeLoginEvent(val password: String) : LoginEvent
     value class ConfirmEmailLoginEvent(val otp: String) : LoginEvent
-    data class PasswordResetLoginEvent(val password: String, val confirmPassword: String) : LoginEvent
+    data class PasswordResetLoginEvent(val password: String) : LoginEvent
 }
