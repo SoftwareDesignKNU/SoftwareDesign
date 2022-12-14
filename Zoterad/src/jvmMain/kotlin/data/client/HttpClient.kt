@@ -9,7 +9,7 @@ import kotlin.random.Random
 typealias AuthToken = String
 
 class HttpClient {
-    private val libraries: MutableMap<User, Map<String, ZoteroCollection>> = mutableMapOf()
+    private val libraries: MutableMap<User, List<ZoteroCollection>> = mutableMapOf()
     private val authTokens = mutableSetOf<String>()
     private fun generateAuthToken(): String {
         var authToken: AuthToken
@@ -65,7 +65,7 @@ class HttpClient {
         return authToken
     }
 
-    fun addLibraries(user: User, collections: Map<String, ZoteroCollection>) {
+    fun addLibraries(user: User, collections: List<ZoteroCollection>) {
         libraries[user] = collections
     }
 

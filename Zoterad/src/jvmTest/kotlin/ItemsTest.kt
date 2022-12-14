@@ -4,7 +4,7 @@ import data.database.Database
 import item.data.LocalItemRepository
 import item.data.entity.item.Book
 import item.data.entity.item.BookRelatedSubData
-import item.data.entity.item.ZoteroItems
+import item.data.entity.item.ZoteroItem
 import main.main.MainComponent
 import main.main.MainEvent
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ class ItemsTest {
     fun addItemToLibraryBasic() {
         val database = Database()
         val client = HttpClient()
-        val item: ZoteroItems = Book(bookRelatedSubData = BookRelatedSubData())
+        val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(database),
             itemRepository = LocalItemRepository(0, database),
@@ -30,7 +30,7 @@ class ItemsTest {
     fun addItemToLibraryAlternate() {
         val database = Database()
         val client = HttpClient()
-        val item: ZoteroItems = Book(bookRelatedSubData = BookRelatedSubData())
+        val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(database),
             itemRepository = LocalItemRepository(0, database),
@@ -45,7 +45,7 @@ class ItemsTest {
 //        val updatedItem: ZoteroItem = rep.getItemByTitle("title")
         val database = Database()
         val client = HttpClient()
-        val item: ZoteroItems = Book(bookRelatedSubData = BookRelatedSubData())
+        val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(database),
             itemRepository = LocalItemRepository(0, database),
@@ -60,7 +60,7 @@ class ItemsTest {
 //        val updatedItem: ZoteroItem = rep.getItemByTitle("title")
         val database = Database()
         val client = HttpClient()
-        val item: ZoteroItems = Book(bookRelatedSubData = BookRelatedSubData())
+        val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(database),
             itemRepository = LocalItemRepository(0, database),
@@ -74,7 +74,7 @@ class ItemsTest {
     fun deleteItemFromLibraryBasic() {
         val database = Database()
         val client = HttpClient()
-        val item: ZoteroItems = Book(bookRelatedSubData = BookRelatedSubData())
+        val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(database),
             itemRepository = LocalItemRepository(0, database),
@@ -89,7 +89,7 @@ class ItemsTest {
     fun deleteItemFromLibraryAlternate() {
         val database = Database()
         val client = HttpClient()
-        val item: ZoteroItems = Book(bookRelatedSubData = BookRelatedSubData())
+        val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(database),
             itemRepository = LocalItemRepository(0, database),

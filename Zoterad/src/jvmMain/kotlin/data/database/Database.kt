@@ -2,6 +2,9 @@ package data.database
 
 import auth.data.entity.User
 import collection.data.entity.ZoteroCollection
+import item.data.entity.item.Book
+import item.data.entity.item.BookRelatedSubData
+import item.data.entity.item.ItemSubData
 
 class Database {
     private val users: List<User> = List(3) {
@@ -14,7 +17,20 @@ class Database {
     }
 
     // locally there is only one user per session
-    val libraries: MutableMap<String, ZoteroCollection> = mutableMapOf()
+    val libraries: List<ZoteroCollection> = mutableListOf(
+        ZoteroCollection(
+            title = "Differential Geometry",
+            items = mutableListOf(
+                Book(
+                    bookRelatedSubData = BookRelatedSubData(
+                        itemSubData = ItemSubData(
+                            title = "Differential Geometry"
+                        )
+                    )
+                )
+            )
+        )
+    )
 
     var user: User? = null
 
