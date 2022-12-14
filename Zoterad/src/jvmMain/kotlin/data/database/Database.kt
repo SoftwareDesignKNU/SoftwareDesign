@@ -4,6 +4,7 @@ import auth.data.entity.User
 import collection.data.entity.ZoteroCollection
 import item.data.entity.item.Book
 import item.data.entity.item.BookRelatedSubData
+import item.data.entity.item.Document
 import item.data.entity.item.ItemSubData
 
 class Database {
@@ -27,6 +28,10 @@ class Database {
                             title = "Differential Geometry"
                         )
                     )
+                ),
+                Document(
+                    language = "English",
+                    itemSubData = ItemSubData()
                 )
             )
         )

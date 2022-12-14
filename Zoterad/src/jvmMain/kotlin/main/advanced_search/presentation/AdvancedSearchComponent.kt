@@ -2,6 +2,9 @@ package main.advanced_search.presentation
 
 import item.data.entity.SearchQuery
 import item.domain.ItemRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AdvancedSearchComponent(
     private val itemRepository: ItemRepository,
@@ -31,6 +34,18 @@ class AdvancedSearchComponent(
             }
             is AdvancedSearchEvent.QuerySearchFieldChangeSearchEvent -> TODO()
             is AdvancedSearchEvent.QuerySearchValueChangeSearchEvent -> TODO()
+            AdvancedSearchEvent.SearchClickAdvancedSearchEvent -> {
+                CoroutineScope(Dispatchers.Unconfined).launch {
+                    itemRepository.searchItem(
+                        matchAll = advancedSearchState.matchAll,
+                        searchQueries = advancedSearchState.searchQueries
+                    ).onSuccess {
+                        println(it)
+                    }.onFailure {
+                        it.printStackTrace()
+                    }
+                }
+            }
         }
     }
 }

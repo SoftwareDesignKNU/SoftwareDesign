@@ -1,6 +1,7 @@
 package item.data
 
 import data.database.Database
+import item.data.entity.Condition
 import item.data.entity.SearchQuery
 import item.data.entity.item.*
 import item.domain.ItemRepository
@@ -42,7 +43,39 @@ class LocalItemRepository(
         return Result.success(Unit)
     }
 
-    override suspend fun searchItem(matchAll: Boolean, searchQueries: List<SearchQuery>) {
-        TODO("Not yet implemented")
+    override suspend fun searchItem(matchAll: Boolean, searchQueries: List<SearchQuery>): Result<List<ZoteroItem>> {
+        return try {
+            Result.success(database.libraries[collectionIndex].items.filter { zoteroItem ->
+                matchAll && searchQueries.all { searchQuery ->
+                    when (searchQuery.condition) {
+                        Condition.Is -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
+                            ?.toString()?.equals(searchQuery.query) == true
+                        Condition.IsNot -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
+                            ?.toString()?.equals(searchQuery.query) != true
+                        Condition.BeginsWith -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
+                            ?.get(zoteroItem)?.toString()?.startsWith(searchQuery.query) == true
+                        Condition.Contains -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
+                            ?.toString()?.contains(searchQuery.query) == true
+                        Condition.DoesNotContain -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
+                            ?.get(zoteroItem)?.toString()?.contains(searchQuery.query) != true
+                    }
+                }
+                !matchAll && searchQueries.any { searchQuery ->
+                    when (searchQuery.condition) {
+                        Condition.Is -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
+                            ?.toString()?.equals(searchQuery.query) == true
+                        Condition.IsNot -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
+                            ?.toString()?.equals(searchQuery.query) != true
+                        Condition.BeginsWith -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
+                            ?.get(zoteroItem)?.toString()?.startsWith(searchQuery.query) == true
+                        Condition.Contains -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
+                            ?.toString()?.contains(searchQuery.query) == true
+                        Condition.DoesNotContain -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
+                            ?.get(zoteroItem)?.toString()?.contains(searchQuery.query) != true
+                    }                }
+            })
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

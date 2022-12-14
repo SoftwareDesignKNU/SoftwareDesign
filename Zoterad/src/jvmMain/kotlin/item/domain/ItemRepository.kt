@@ -8,5 +8,5 @@ interface ItemRepository {
     suspend fun addItem(item: ZoteroItem): Result<Unit>
     suspend fun deleteItem(item: ZoteroItem): Result<Unit>
     suspend fun updateItem(title: String, item: ZoteroItem): Result<Unit>
-    suspend fun searchItem(matchAll: Boolean, searchQueries: List<SearchQuery>)
+    suspend fun searchItem(matchAll: Boolean, searchQueries: List<SearchQuery>): Result<List<ZoteroItem>>
 }
