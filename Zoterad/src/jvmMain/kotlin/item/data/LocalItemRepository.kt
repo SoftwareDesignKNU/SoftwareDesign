@@ -2,18 +2,29 @@ package item.data
 
 import data.database.Database
 import item.data.entity.SearchQuery
-import item.data.entity.item.Book
-import item.data.entity.item.BookRelatedSubData
-import item.data.entity.item.ZoteroItem
+import item.data.entity.item.*
 import item.domain.ItemRepository
 
 class LocalItemRepository(
-    collectionIndex: Int,
-    database: Database,
+    private val collectionIndex: Int,
+    private val database: Database,
 ) : ItemRepository {
-    override suspend fun getItemByTitle(title: String): Result<ZoteroItem> {
+    override suspend fun getItemsByTitle(title: String): Result<List<ZoteroItem>> {
         println("LocalRepository: getItemByTitle(title)")
-        return Result.success(Book(bookRelatedSubData = BookRelatedSubData()))
+        return Result.success(database.libraries[collectionIndex].items.filter { zoteroItem ->
+            when (zoteroItem) {
+                is Book -> {
+                    zoteroItem.bookRelatedSubData.itemSubData.title == title
+                }
+                is BookSection -> {
+                    zoteroItem.bookRelatedSubData.itemSubData.title == title
+                }
+                is Document -> {
+                    zoteroItem.itemSubData.title == title
+                }
+                else -> false
+            }
+        })
     }
 
     override suspend fun addItem(item: ZoteroItem): Result<Unit> {

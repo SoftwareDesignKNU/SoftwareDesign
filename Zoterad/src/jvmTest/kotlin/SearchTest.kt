@@ -17,6 +17,18 @@ class SearchTest {
             itemRepository = LocalItemRepository(0, database),
             syncRepository = SyncRepository(database, client)
         )
-        mainComponent.reduce(MainEvent.QuickSearchMainEvent("Title"))
+        mainComponent.reduce(MainEvent.QuickSearchMainEvent("Differential Geometry"))
+    }
+
+    @Test
+    fun quickSearchAlternativeFlow() {
+        val database = Database()
+        val client = HttpClient()
+        val mainComponent = MainComponent(
+            collectionRepository = LocalCollectionRepository(database),
+            itemRepository = LocalItemRepository(0, database),
+            syncRepository = SyncRepository(database, client)
+        )
+        mainComponent.reduce(MainEvent.QuickSearchMainEvent("Does not exist"))
     }
 }

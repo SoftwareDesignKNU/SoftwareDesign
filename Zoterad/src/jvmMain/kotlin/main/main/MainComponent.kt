@@ -74,9 +74,9 @@ class MainComponent(
                         }
                 }
                 is MainEvent.QuickSearchMainEvent -> {
-                    itemRepository.getItemByTitle(mainEvent.itemTitle)
+                    itemRepository.getItemsByTitle(mainEvent.itemTitle)
                         .onSuccess {
-                            println("Item found: $it")
+                            println("Items found: $it")
                         }
                         .onFailure {
                             it.printStackTrace()
