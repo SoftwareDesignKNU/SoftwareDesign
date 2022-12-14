@@ -1,6 +1,10 @@
 package auth.register.presentation
 
+import auth.data.entity.RegisterDTO
 import auth.domain.IUserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterComponent(
     private val userRepository: IUserRepository,
@@ -21,7 +25,21 @@ class RegisterComponent(
                 registerState = registerState.copy(verifyPassword = registerEvent.passwordConfirmation)
             }
             RegisterEvent.RegistrationClickRegisterEvent -> {
-                // login logic
+                CoroutineScope(Dispatchers.Default).launch {
+                    userRepository.register(
+                        RegisterDTO(
+                            firstName = registerState.firstName,
+                            lastName = registerState.lastName,
+                            email = registerState.email,
+                            password = registerState.password,
+                            username = registerState.username
+                        )
+                    ).onSuccess {
+                        println("Register success")
+                    }.onFailure {
+                        println("Register error")
+                    }
+                }
             }
             is RegisterEvent.UsernameChangeRegisterEvent -> {
                 registerState = registerState.copy(username = registerEvent.username)

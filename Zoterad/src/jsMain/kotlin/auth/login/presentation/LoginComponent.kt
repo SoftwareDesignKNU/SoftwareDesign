@@ -26,10 +26,8 @@ class LoginComponent(
                     loginState = loginState.copy(password = loginEvent.password)
                 }
                 is LoginEvent.PasswordForgotClickLoginEvent -> {
-                    val otpResult = userRepository.sendPasswordChangeRequest(loginEvent.email).getOrNull()
-                    otpResult?.let {
-                        reduce(LoginEvent.ConfirmEmailLoginEvent(otpResult))
-
+                    userRepository.sendPasswordChangeRequest(loginEvent.email).onSuccess {
+                        reduce(LoginEvent.ConfirmEmailLoginEvent(it))
                     }
                 }
                 is LoginEvent.RememberUsernameToggledLoginEvent -> {
