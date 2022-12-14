@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import sync.data.SyncRepository
 
 class CollectionTest {
+      //T2 - UC3 - SDA2 Basic Scenario
     @Test
     fun createCollectionBasic() {
         val database = Database()
@@ -23,7 +24,7 @@ class CollectionTest {
         )
         component.reduce(MainEvent.AddCollectionMainEvent(title))
     }
-
+     //T2.2 - UC3 - SDA2 Alternate Scenario
     @Test
     fun createCollectionAlternate() {
         val database = Database()

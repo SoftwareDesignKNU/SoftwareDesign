@@ -13,6 +13,7 @@ import sync.data.SyncRepository
 import kotlin.test.Test
 
 class SearchTest {
+     //T8 - UC10 - SDA8 Basic Scenario
     @Test
     fun quickSearchBasicFlow() {
         val database = Database()
@@ -24,7 +25,7 @@ class SearchTest {
         )
         mainComponent.reduce(MainEvent.QuickSearchMainEvent("Differential Geometry"))
     }
-
+    //T8.2 - UC10 - SDA8 Alternate Scenario
     @Test
     fun quickSearchAlternativeFlow() {
         val database = Database()
@@ -36,7 +37,7 @@ class SearchTest {
         )
         mainComponent.reduce(MainEvent.QuickSearchMainEvent("Does not exist"))
     }
-
+    //T5 - UC9 - SDA5 Basic Scenario
     @Test
     fun advancedSearchBasicFlow() {
         val database = Database()
@@ -53,7 +54,7 @@ class SearchTest {
         )
         advancedSearchComponent.reduce(AdvancedSearchEvent.SearchClickAdvancedSearchEvent)
     }
-
+     //T5.2 - UC9 - SDA5 Alternate Scenario
     @Test
     fun advancedSearchAlternativeFlow() {
         val database = Database()
