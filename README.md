@@ -12,9 +12,6 @@ Run Collections test cases :
 Run Search test cases:
 ```gradle :cleanJvmTest :jvmTest --tests "SearchTest"```
 
-Run Search test cases:
-```gradle :cleanJvmTest :jvmTest --tests "SearchTest"```
-
 Run Login test cases:
 ```gradle :cleanJvmTest :jvmTest --tests "LoginTest"```
 
