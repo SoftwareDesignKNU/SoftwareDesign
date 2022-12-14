@@ -6,10 +6,10 @@ class TestUC {
     //T1 - UC7 - SDA1 Basic scenario
     @Test
     fun TestLoginBasic() {
-        reduce(new LoginButtonClickLoginEven())
-        print("reduce: reduce branch visited")
-        print("reduce: nvoked by Zotero User")
-        login(new User("Username","password"))
+        reduce(LoginButtonClickLoginEven())
+        println("reduce: reduce branch visited")
+        println("reduce: nvoked by Zotero User")
+        login(User("Username","password"))
         print("login: login branch visited")
         print("login: invoked by LoginComponent")
 

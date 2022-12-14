@@ -12,8 +12,9 @@ class Database {
             username = "username$it"
         )
     }
-
-    val libraries: List<ZoteroCollection> = emptyList()
+    
+    // locally there is only one user per session
+    val libraries: MutableMap<String, ZoteroCollection> = mutableMapOf()
 
     var user: User? = null
 

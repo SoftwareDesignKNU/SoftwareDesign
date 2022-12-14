@@ -18,7 +18,7 @@ class HttpClient {
             password = "password$it"
         )
     }.associateWith { generateJWT(it.hashCode()) }.toMutableMap()
-    private val libraries: MutableMap<User, List<ZoteroCollection>> = mutableMapOf()
+    private val libraries: MutableMap<User, Map<String, ZoteroCollection>> = mutableMapOf()
     private fun generateJWT(seed: Int): String {
         return List(25) { Random(seed).nextInt(32, 126).toChar() }.joinToString("")
     }
@@ -55,7 +55,7 @@ class HttpClient {
         return jwt
     }
 
-    fun addLibraries(user: User, collections: List<ZoteroCollection>) {
+    fun addLibraries(user: User, collections: Map<String, ZoteroCollection>) {
         libraries[user] = collections
     }
 

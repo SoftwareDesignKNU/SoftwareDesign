@@ -14,7 +14,7 @@ class ItemsTest {
         val item: ZoteroItem = Book(bookRelatedSubData = BookRelatedSubData())
         val component = MainComponent(
             collectionRepository = LocalCollectionRepository(),
-            itemRepository = LocalItemRepository(),
+            itemRepository = LocalItemRepository(0),
             syncRepository = SyncRepository()
         )
         component.reduce(MainEvent.AddItemMainEvent("title", item))
