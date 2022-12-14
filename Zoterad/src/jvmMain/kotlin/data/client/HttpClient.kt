@@ -6,10 +6,19 @@ import auth.data.entity.User
 import collection.data.entity.ZoteroCollection
 import kotlin.random.Random
 
-typealias JWT = String
+typealias AuthToken = String
 
 class HttpClient {
-    private val users: MutableMap<RegisterDTO, JWT> = List(5) {
+    private val libraries: MutableMap<User, Map<String, ZoteroCollection>> = mutableMapOf()
+    private val authTokens = mutableSetOf<String>()
+    private fun generateAuthToken(): String {
+        var authToken: AuthToken
+        do {
+            authToken = List(25) { Random.nextInt(32, 126).toChar() }.joinToString("")
+        } while (authTokens.contains(authToken))
+        return authToken
+    }
+    private val users: MutableMap<RegisterDTO, AuthToken> = List(5) {
         RegisterDTO(
             firstName = "first name $it",
             lastName = "last name $it",
@@ -17,13 +26,9 @@ class HttpClient {
             username = "username$it",
             password = "password$it"
         )
-    }.associateWith { generateJWT(it.hashCode()) }.toMutableMap()
-    private val libraries: MutableMap<User, Map<String, ZoteroCollection>> = mutableMapOf()
-    private fun generateJWT(seed: Int): String {
-        return List(25) { Random(seed).nextInt(32, 126).toChar() }.joinToString("")
-    }
+    }.associateWith { generateAuthToken() }.toMutableMap()
 
-    fun login(loginDTO: LoginDTO): JWT? {
+    fun login(loginDTO: LoginDTO): AuthToken? {
         println(users)
         val user = users.keys.find {
             it.email == loginDTO.emailOrUsername && it.password == loginDTO.password ||
@@ -32,10 +37,10 @@ class HttpClient {
         return users[user]
     }
 
-    fun register(registerDTO: RegisterDTO): JWT? {
+    fun register(registerDTO: RegisterDTO): AuthToken? {
         if (users.keys.find { it.email == registerDTO.email } != null) throw Exception("Email already exists")
         if (users.keys.find { it.username == registerDTO.username } != null) throw Exception("Username already exists")
-        users[registerDTO] = generateJWT(registerDTO.hashCode())
+        users[registerDTO] = generateAuthToken()
         println(users)
         return users[registerDTO]
     }
@@ -51,13 +56,13 @@ class HttpClient {
         throw Exception("OTPs are different")
     }
 
-    fun changePassword(emailOrUsername: String, password: String): JWT {
+    fun changePassword(emailOrUsername: String, password: String): AuthToken {
         val user = users.keys.find { it.email == emailOrUsername } ?: throw Exception("User not found")
         val changedUser = user.copy(password = password)
         users.remove(user)
-        val jwt = generateJWT(changedUser.hashCode())
-        users[changedUser] = jwt
-        return jwt
+        val authToken = generateAuthToken()
+        users[changedUser] = authToken
+        return authToken
     }
 
     fun addLibraries(user: User, collections: Map<String, ZoteroCollection>) {
