@@ -2,8 +2,7 @@ package item.data
 
 import common.data.database.Database
 import item.data.entity.SearchQuery
-import item.data.entity.item.Person
-import item.data.entity.item.ZoteroItem
+import item.data.entity.item.*
 import item.domain.ItemRepository
 
 class LocalItemRepository(
@@ -12,7 +11,7 @@ class LocalItemRepository(
 ) : ItemRepository {
     override suspend fun getItemByTitle(title: String): Result<ZoteroItem> {
         println("LocalRepository: getItemByTitle(title)")
-        return Result.success(ZoteroItem)
+        return Result.success(Book(bookRelatedSubData = BookRelatedSubData()))
     }
 
     override suspend fun addItem(item: ZoteroItem): Result<Unit> {

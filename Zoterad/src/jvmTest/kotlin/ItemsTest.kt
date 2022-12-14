@@ -83,7 +83,7 @@ class ItemsTest {
 
         component.reduce(MainEvent.DeleteItemMainEvent("title", item))
 
-        println("Cancel pressed.")
+        println("Cancel pressed. deleteItemFromLibraryAlternate()")
     }
 
 }
