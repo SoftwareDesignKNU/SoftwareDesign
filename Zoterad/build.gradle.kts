@@ -16,8 +16,12 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
+
 kotlin {
     jvm {
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
         compilations.all {
             kotlinOptions.jvmTarget = "11"
         }
@@ -46,7 +50,11 @@ kotlin {
                 implementation(compose.desktop.currentOs)
             }
         }
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
         val jsMain by getting {
             dependencies {
                 implementation(compose.web.core)
@@ -56,6 +64,11 @@ kotlin {
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test")) // This brings all the platform dependencies automatically
             }
         }
     }

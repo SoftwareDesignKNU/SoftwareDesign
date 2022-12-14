@@ -2,6 +2,9 @@ package main.main
 
 import collection.domain.ICollectionRepository
 import item.domain.ItemRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import sync.domain.ISyncRepository
 
 class MainComponent(
@@ -12,15 +15,21 @@ class MainComponent(
     var mainState = MainState()
 
     fun reduce(mainEvent: MainEvent) {
-        when (mainEvent) {
-            is MainEvent.AddCollectionMainEvent -> TODO()
-            is MainEvent.AddItemByIDMainEvent -> TODO()
-            is MainEvent.AddItemMainEvent -> TODO()
-            is MainEvent.DeleteCollectionMainEvent -> TODO()
-            is MainEvent.DeleteItemMainEvent -> TODO()
-            is MainEvent.RenameCollectionMainEvent -> TODO()
-            MainEvent.SyncLibraryMainEvent -> TODO()
-            is MainEvent.UpdateItemMainEvent -> TODO()
+        CoroutineScope(Dispatchers.IO).launch {
+            when (mainEvent) {
+                is MainEvent.AddCollectionMainEvent -> TODO()
+                is MainEvent.AddItemByIDMainEvent -> TODO()
+                is MainEvent.AddItemMainEvent -> {
+                    if (itemRepository.addItem(mainEvent.item).isSuccess) {
+                        mainState.collections[mainState.collectionIndex].items.add(mainEvent.item)
+                    }
+                }
+                is MainEvent.DeleteCollectionMainEvent -> TODO()
+                is MainEvent.DeleteItemMainEvent -> TODO()
+                is MainEvent.RenameCollectionMainEvent -> TODO()
+                MainEvent.SyncLibraryMainEvent -> TODO()
+                is MainEvent.UpdateItemMainEvent -> TODO()
+            }
         }
     }
 }
