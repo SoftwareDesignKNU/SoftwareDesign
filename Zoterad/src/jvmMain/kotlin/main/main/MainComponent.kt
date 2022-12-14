@@ -20,8 +20,8 @@ class MainComponent(
         CoroutineScope(Dispatchers.Unconfined).launch {
             when (mainEvent) {
                 is MainEvent.AddCollectionMainEvent -> {
-                    val collection = ZoteroCollection("title", mutableListOf())
-                    collectionRepository.addCollection(collection)
+                    val collection = ZoteroCollection(mainEvent.title, mutableListOf())
+                    collectionRepository.addCollection(mainEvent.title)
                     mainState.collections.add(collection)
                 }
                 is MainEvent.AddItemByIDMainEvent -> TODO()
@@ -35,8 +35,8 @@ class MainComponent(
                     }
                 }
                 is MainEvent.DeleteCollectionMainEvent -> {
-                        collectionRepository.deleteCollection(mainEvent.title)
-                        mainState.collections.remove(mainState.collections.find { it.title == mainEvent.title })
+                    collectionRepository.deleteCollection(mainEvent.title)
+                    mainState.collections.remove(mainState.collections.find { it.title == mainEvent.title })
                 }
                 is MainEvent.DeleteItemMainEvent -> {
                     itemRepository.deleteItem(mainEvent.item)
@@ -46,13 +46,9 @@ class MainComponent(
                             it.printStackTrace()
                         }
                 }
-<<<<<<< HEAD
                 is MainEvent.RenameCollectionMainEvent -> {
-                    
+
                 }
-                MainEvent.SyncLibraryMainEvent -> TODO()
-=======
-                is MainEvent.RenameCollectionMainEvent -> TODO()
                 MainEvent.SyncLibraryMainEvent -> {
                     syncRepository.syncLibrary()
                         .onSuccess {
@@ -61,7 +57,6 @@ class MainComponent(
                             it.printStackTrace()
                         }
                 }
->>>>>>> 17e68413d7dcc1b9327eef9849fd13add2378197
                 is MainEvent.UpdateItemMainEvent -> {
                     itemRepository
                         .updateItem(mainEvent.collectionTitle, mainEvent.item)
@@ -76,6 +71,15 @@ class MainComponent(
                             }
                             mainState.collections[mainState.collectionIndex].items.removeAt(0)
                             mainState.collections[mainState.collectionIndex].items.add(mainEvent.item)
+                        }
+                }
+                is MainEvent.QuickSearchMainEvent -> {
+                    itemRepository.getItemByTitle(mainEvent.itemTitle)
+                        .onSuccess {
+                            println("Item found: $it")
+                        }
+                        .onFailure {
+                            it.printStackTrace()
                         }
                 }
             }

@@ -2,13 +2,9 @@ package item.data
 
 import data.database.Database
 import item.data.entity.SearchQuery
-<<<<<<< HEAD:Zoterad/src/commonMain/kotlin/item/data/LocalItemRepository.kt
-import item.data.entity.item.*
-=======
 import item.data.entity.item.Book
 import item.data.entity.item.BookRelatedSubData
 import item.data.entity.item.ZoteroItem
->>>>>>> 17e68413d7dcc1b9327eef9849fd13add2378197:Zoterad/src/jvmMain/kotlin/item/data/LocalItemRepository.kt
 import item.domain.ItemRepository
 
 class LocalItemRepository(
@@ -17,11 +13,7 @@ class LocalItemRepository(
 ) : ItemRepository {
     override suspend fun getItemByTitle(title: String): Result<ZoteroItem> {
         println("LocalRepository: getItemByTitle(title)")
-<<<<<<< HEAD:Zoterad/src/commonMain/kotlin/item/data/LocalItemRepository.kt
         return Result.success(Book(bookRelatedSubData = BookRelatedSubData()))
-=======
-        return Result.success(Book(BookRelatedSubData()))
->>>>>>> 17e68413d7dcc1b9327eef9849fd13add2378197:Zoterad/src/jvmMain/kotlin/item/data/LocalItemRepository.kt
     }
 
     override suspend fun addItem(item: ZoteroItem): Result<Unit> {

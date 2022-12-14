@@ -17,7 +17,7 @@ class Database {
     }
 
     // locally there is only one user per session
-    val libraries: List<ZoteroCollection> = mutableListOf(
+    val libraries: MutableList<ZoteroCollection> = mutableListOf(
         ZoteroCollection(
             title = "Differential Geometry",
             items = mutableListOf(
