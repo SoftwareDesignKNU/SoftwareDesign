@@ -8,19 +8,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginComponent(
-    private val userRepository: IUserRepository = UserRepository(),
+    private val userRepository: IUserRepository,
 ) {
     var loginState: LoginState = LoginState()
     fun reduce(loginEvent: LoginEvent) {
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.Unconfined).launch {
             when (loginEvent) {
                 is LoginEvent.UsernameChangeLoginEvent -> {
                     loginState = loginState.copy(username = loginEvent.username)
                 }
                 LoginEvent.LoginButtonClickLoginEven -> {
+                    println("LoginComponent: reduce(LoginButtonClickLoginEven)")
                     val loginDto = LoginDTO(loginState.username, loginState.password)
                     userRepository.login(loginDto)
-                    println("Screen was changed to the main screen")
+                        .onSuccess {
+                            println("Login successful")
+                        }.onFailure {
+                            it.printStackTrace()
+                        }
                 }
                 is LoginEvent.PasswordChangeLoginEvent -> {
                     loginState = loginState.copy(password = loginEvent.password)

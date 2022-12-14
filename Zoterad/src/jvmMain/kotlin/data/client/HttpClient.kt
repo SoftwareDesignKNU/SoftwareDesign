@@ -9,7 +9,7 @@ import kotlin.random.Random
 typealias JWT = String
 
 class HttpClient {
-    private val users: MutableMap<RegisterDTO, JWT> = List(100) {
+    private val users: MutableMap<RegisterDTO, JWT> = List(3) {
         RegisterDTO(
             firstName = "first name $it",
             lastName = "last name $it",
@@ -24,10 +24,11 @@ class HttpClient {
     }
 
     fun login(loginDTO: LoginDTO): JWT? {
+        println(users)
         val user = users.keys.find {
             it.email == loginDTO.emailOrUsername && it.password == loginDTO.password ||
                     it.username == loginDTO.emailOrUsername && it.password == loginDTO.password
-        } ?: return null
+        } ?: throw Exception("User not found")
         return users[user]
     }
 
@@ -35,6 +36,7 @@ class HttpClient {
         if (users.keys.find { it.email == registerDTO.email } != null) throw Exception("Email already exists")
         if (users.keys.find { it.username == registerDTO.username } != null) throw Exception("Username already exists")
         users[registerDTO] = generateJWT(registerDTO.hashCode())
+        println(users)
         return users[registerDTO]
     }
 

@@ -1,5 +1,6 @@
 package auth.presentation
 
+import auth.data.UserRepository
 import auth.data.entity.RegisterDTO
 import auth.domain.IUserRepository
 import kotlinx.coroutines.CoroutineScope

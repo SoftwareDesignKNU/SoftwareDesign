@@ -1,5 +1,4 @@
 import auth.data.UserRepository
-import auth.domain.IUserRepository
 import auth.presentation.RegisterComponent
 import auth.presentation.RegisterEvent
 import auth.presentation.RegisterState
@@ -8,8 +7,8 @@ import kotlin.test.Test
 class RegisterTest {
     @Test
     fun registerTestBasicFLow() {
-        val component = RegisterComponent(UserRepository())
-        component.registerState = RegisterState(
+        val registerComponent = RegisterComponent(UserRepository())
+        registerComponent.registerState = RegisterState(
             username = "example",
             email = "example@example.com",
             emailConfirm = "example@example.com",
@@ -18,7 +17,7 @@ class RegisterTest {
             firstName = "FirstName",
             lastName = "LastName"
         )
-        component.reduce(RegisterEvent.RegistrationClickRegisterEvent)
+        registerComponent.reduce(RegisterEvent.RegistrationClickRegisterEvent)
     }
 
     @Test
