@@ -1,4 +1,4 @@
-package auth.register.presentation
+package auth.presentation
 
 import auth.data.entity.RegisterDTO
 import auth.domain.IUserRepository
@@ -25,6 +25,7 @@ class RegisterComponent(
                 registerState = registerState.copy(verifyPassword = registerEvent.passwordConfirmation)
             }
             RegisterEvent.RegistrationClickRegisterEvent -> {
+                println("Register component: reduce(RegistrationClickRegisterEvent)")
                 CoroutineScope(Dispatchers.Default).launch {
                     userRepository.register(
                         RegisterDTO(

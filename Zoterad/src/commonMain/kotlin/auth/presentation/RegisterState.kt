@@ -1,4 +1,4 @@
-package auth.register.presentation
+package auth.presentation
 
 data class RegisterState(
     val username: String = "",
