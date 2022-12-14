@@ -15,7 +15,7 @@ class MainComponent(
     var mainState = MainState()
 
     fun reduce(mainEvent: MainEvent) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Unconfined).launch {
             when (mainEvent) {
                 is MainEvent.AddCollectionMainEvent -> TODO()
                 is MainEvent.AddItemByIDMainEvent -> TODO()
@@ -25,10 +25,19 @@ class MainComponent(
                     }
                 }
                 is MainEvent.DeleteCollectionMainEvent -> TODO()
-                is MainEvent.DeleteItemMainEvent -> TODO()
+                is MainEvent.DeleteItemMainEvent -> {
+                    if(itemRepository.deleteItem(mainEvent.item).isSuccess) {
+                        mainState.collections[mainState.collectionIndex].items.removeAt(0)
+                    }
+                }
                 is MainEvent.RenameCollectionMainEvent -> TODO()
                 MainEvent.SyncLibraryMainEvent -> TODO()
-                is MainEvent.UpdateItemMainEvent -> TODO()
+                is MainEvent.UpdateItemMainEvent -> {
+                    if(itemRepository.updateItem(mainEvent.collectionTitle, mainEvent.item).isSuccess) {
+                        mainState.collections[mainState.collectionIndex].items.removeAt(0)
+                        mainState.collections[mainState.collectionIndex].items.add(mainEvent.item)
+                    }
+                }
             }
         }
     }
