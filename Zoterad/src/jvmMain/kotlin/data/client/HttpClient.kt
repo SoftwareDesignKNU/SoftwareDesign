@@ -32,6 +32,8 @@ class HttpClient {
     }
 
     fun register(registerDTO: RegisterDTO): JWT? {
+        if (users.keys.find { it.email == registerDTO.email } != null) throw Exception("Email already exists")
+        if (users.keys.find { it.username == registerDTO.username } != null) throw Exception("Username already exists")
         users[registerDTO] = generateJWT(registerDTO.hashCode())
         return users[registerDTO]
     }

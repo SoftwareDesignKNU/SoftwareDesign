@@ -40,7 +40,7 @@ class RegisterComponent(
                         ).onSuccess {
                             println("Register success")
                         }.onFailure {
-                            println("Register error")
+                            it.printStackTrace()
                         }
                     } else {
                         println("Data is invalid(")
