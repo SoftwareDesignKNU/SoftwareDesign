@@ -40,13 +40,29 @@ class SearchTest {
     @Test
     fun advancedSearchBasicFlow() {
         val database = Database()
-        val client = HttpClient()
         val advancedSearchComponent = AdvancedSearchComponent(LocalItemRepository(0, database))
         advancedSearchComponent.advancedSearchState = AdvancedSearchState(
             matchAll = true,
             searchQueries = listOf(
                 SearchQuery(
                     searchField = "language",
+                    condition = Condition.Contains,
+                    query = "Eng"
+                )
+            )
+        )
+        advancedSearchComponent.reduce(AdvancedSearchEvent.SearchClickAdvancedSearchEvent)
+    }
+
+    @Test
+    fun advancedSearchAlternativeFlow() {
+        val database = Database()
+        val advancedSearchComponent = AdvancedSearchComponent(LocalItemRepository(0, database))
+        advancedSearchComponent.advancedSearchState = AdvancedSearchState(
+            matchAll = true,
+            searchQueries = listOf(
+                SearchQuery(
+                    searchField = "language1",
                     condition = Condition.Contains,
                     query = "Eng"
                 )
