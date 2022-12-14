@@ -1,10 +1,9 @@
 import auth.data.UserRepository
 import auth.domain.IUserRepository
-import auth.register.presentation.RegisterComponent
-import auth.register.presentation.RegisterEvent
-import auth.register.presentation.RegisterState
+import auth.presentation.RegisterComponent
+import auth.presentation.RegisterEvent
+import auth.presentation.RegisterState
 import kotlin.test.Test
-import kotlin.test.assertTrue
 
 class RegisterTest {
     @Test
@@ -13,12 +12,11 @@ class RegisterTest {
         val component = RegisterComponent(userRepository)
         component.registerState = RegisterState(
             username = "example",
-            email = "example@example.com"
+            email = "example@example.com",
+            emailConfirm = "example@example.com",
+            password = "Qqwerty1!",
+            verifyPassword = "Qqwerty1!"
         )
         component.reduce(RegisterEvent.RegistrationClickRegisterEvent)
-        assertTrue {
-            // check should be done here
-            true
-        }
     }
 }

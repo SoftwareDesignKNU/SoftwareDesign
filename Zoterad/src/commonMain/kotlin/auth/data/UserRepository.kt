@@ -19,6 +19,7 @@ class UserRepository(
     }
 
     override suspend fun register(registerRequestData: RegisterDTO): Result<String> {
+        println("UserRepository: register($registerRequestData)")
         return client.register(registerRequestData)?.let { Result.success(it) }
             ?: Result.failure(Exception("Register error"))
     }

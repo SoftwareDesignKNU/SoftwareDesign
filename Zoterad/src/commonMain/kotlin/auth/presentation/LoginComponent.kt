@@ -1,4 +1,4 @@
-package auth.login.presentation
+package auth.presentation
 
 import auth.data.UserRepository
 import auth.data.entity.LoginDTO
