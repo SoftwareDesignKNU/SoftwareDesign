@@ -37,7 +37,7 @@ class SyncLibraryTest {
         )
         mainComponent.reduce(MainEvent.SyncLibraryMainEvent)
     }
-
+    //T12.2 - UC12 - SDA12 Alternate Flow
     @Test
     fun syncLibraryAlternativeFlowTest() {
         val database = Database()
