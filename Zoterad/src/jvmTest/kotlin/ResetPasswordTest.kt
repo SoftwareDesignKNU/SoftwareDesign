@@ -1,10 +1,10 @@
 import auth.data.UserRepository
 import auth.presentation.*
-import kotlin.test.Test
+import org.junit.jupiter.api.Test
 
-class LoginTest {
+class ResetPasswordTest {
     @Test
-    fun loginBasicTest() {
+    fun resetPasswordBasicFlowTest() {
         val userRepository = UserRepository()
         val registerComponent = RegisterComponent(userRepository)
         registerComponent.registerState = RegisterState(
@@ -17,16 +17,14 @@ class LoginTest {
             lastName = "LastName"
         )
         registerComponent.reduce(RegisterEvent.RegistrationClickRegisterEvent)
-        val component = LoginComponent(userRepository)
-        component.loginState = LoginState(
-            username = "example",
-            password = "Qqwerty1!"
+        val loginComponent = LoginComponent(userRepository)
+        loginComponent.reduce(
+            LoginEvent.PasswordForgotClickLoginEvent("example@example.com", "Qqwerty1!New")
         )
-        component.reduce(LoginEvent.LoginButtonClickLoginEven)
     }
 
     @Test
-    fun loginFirstAlternativeFlowTest() {
+    fun resetPasswordAlternativeFlow() {
         val userRepository = UserRepository()
         val registerComponent = RegisterComponent(userRepository)
         registerComponent.registerState = RegisterState(
@@ -39,11 +37,7 @@ class LoginTest {
             lastName = "LastName"
         )
         registerComponent.reduce(RegisterEvent.RegistrationClickRegisterEvent)
-        val component = LoginComponent(userRepository)
-        component.loginState = LoginState(
-            username = "example",
-            password = "Qqwerty1"
-        )
-        component.reduce(LoginEvent.LoginButtonClickLoginEven)
+        val loginComponent = LoginComponent(userRepository)
+        loginComponent.reduce(LoginEvent.PasswordForgotClickLoginEvent("exampleNotExists@example.com", "Qqwerty1!New"))
     }
 }

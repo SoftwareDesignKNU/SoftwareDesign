@@ -47,6 +47,7 @@ class UserRepository(
     }
 
     override suspend fun sendPasswordChangeRequest(email: String): Result<String> {
+        println("UserRepository: sendPasswordChangeRequest($email)")
         return try {
             val otp = client.sendPasswordChangeRequest(email)
             Result.success(otp)
@@ -56,6 +57,7 @@ class UserRepository(
     }
 
     override suspend fun sendPasswordConfirmation(otp: String): Result<Unit> {
+        println("UserRepository: sendPasswordConfirmation($otp)")
         return try {
             client.sendPasswordConfirmation(otp)
             Result.success(Unit)
@@ -65,6 +67,7 @@ class UserRepository(
     }
 
     override suspend fun changePassword(email: String, newPassword: String): Result<String> {
+        println("UserRepository: changePassword($email, $newPassword)")
         return try {
             Result.success(client.changePassword(email, newPassword))
         } catch (e: Exception) {

@@ -1,6 +1,5 @@
 package auth.presentation
 
-import auth.data.UserRepository
 import auth.data.entity.LoginDTO
 import auth.domain.IUserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -31,19 +30,41 @@ class LoginComponent(
                     loginState = loginState.copy(password = loginEvent.password)
                 }
                 is LoginEvent.PasswordForgotClickLoginEvent -> {
-                    userRepository.sendPasswordChangeRequest(loginEvent.email).onSuccess {
-                        reduce(LoginEvent.ConfirmEmailLoginEvent(it))
-                    }
+                    println("LoginComponent: reduce(PasswordForgotClickLoginEvent)")
+                    userRepository.sendPasswordChangeRequest(loginEvent.email)
+                        .onSuccess {
+                            println(it)
+                            reduce(LoginEvent.ConfirmEmailLoginEvent(it, loginEvent.email, loginEvent.newPassword))
+                        }.onFailure {
+                            it.printStackTrace()
+                        }
                 }
                 is LoginEvent.RememberUsernameToggledLoginEvent -> {
                     loginState = loginState.copy(rememberUser = loginEvent.rememberUser)
                 }
                 is LoginEvent.ConfirmEmailLoginEvent -> {
+                    println("LoginComponent: reduce(ConfirmEmailLoginEvent)")
                     userRepository.sendPasswordConfirmation(loginEvent.otp)
-                    reduce(LoginEvent.PasswordResetLoginEvent(loginState.password))
+                        .onSuccess {
+                            reduce(LoginEvent.PasswordResetLoginEvent(loginEvent.newPassword, loginEvent.email))
+                        }.onFailure {
+                            it.printStackTrace()
+                        }
                 }
                 is LoginEvent.PasswordResetLoginEvent -> {
-                    userRepository.changePassword(loginState.username, loginEvent.password)
+                    println("LoginComponent: reduce(PasswordResetLoginEvent)")
+                    if ("^(?=.*[A-Z])(?=.*[!@#\$&*])(?=.*\\d)(?=.*[a-z]).{8}\$\n".toRegex()
+                            .matches(loginEvent.password)
+                    ) {
+                        println("Password is invalid")
+                        return@launch
+                    }
+                    userRepository.changePassword(loginEvent.email, loginEvent.password)
+                        .onSuccess {
+                            println("Password successfully changed")
+                        }.onFailure {
+                            it.printStackTrace()
+                        }
                 }
             }
         }

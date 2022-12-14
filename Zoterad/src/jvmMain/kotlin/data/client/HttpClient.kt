@@ -41,6 +41,7 @@ class HttpClient {
     }
 
     fun sendPasswordChangeRequest(email: String): String {
+        if (users.keys.find { it.email == email } == null) throw Exception("User not found")
         println("Password confirmation send")
         return "otp generated"
     }
@@ -50,8 +51,8 @@ class HttpClient {
         throw Exception("OTPs are different")
     }
 
-    fun changePassword(email: String, password: String): JWT {
-        val user = users.keys.find { it.email == email } ?: throw Exception("User not found")
+    fun changePassword(emailOrUsername: String, password: String): JWT {
+        val user = users.keys.find { it.email == emailOrUsername } ?: throw Exception("User not found")
         val changedUser = user.copy(password = password)
         users.remove(user)
         val jwt = generateJWT(changedUser.hashCode())

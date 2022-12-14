@@ -9,14 +9,12 @@ sealed interface LoginEvent {
     @JvmInline
     value class RememberUsernameToggledLoginEvent(val rememberUser: Boolean) : LoginEvent
 
-    @JvmInline
-    value class PasswordForgotClickLoginEvent(val email: String) : LoginEvent
+    data class PasswordForgotClickLoginEvent(val email: String, val newPassword: String) : LoginEvent
     object LoginButtonClickLoginEven : LoginEvent
 
     @JvmInline
     value class PasswordChangeLoginEvent(val password: String) : LoginEvent
 
-    @JvmInline
-    value class ConfirmEmailLoginEvent(val otp: String) : LoginEvent
-    data class PasswordResetLoginEvent(val password: String) : LoginEvent
+    data class ConfirmEmailLoginEvent(val otp: String, val email: String, val newPassword: String) : LoginEvent
+    data class PasswordResetLoginEvent(val password: String, val email: String) : LoginEvent
 }
