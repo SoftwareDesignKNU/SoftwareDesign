@@ -36,4 +36,31 @@ class SyncLibraryTest {
         )
         mainComponent.reduce(MainEvent.SyncLibraryMainEvent)
     }
+
+    @Test
+    fun syncLibraryAlternativeFlowTest() {
+        val database = Database()
+        val client = HttpClient()
+        val userRepository = UserRepository(database, client)
+        val registerComponent = RegisterComponent(userRepository)
+        val loginComponent = LoginComponent(userRepository)
+        registerComponent.registerState = RegisterState(
+            username = "example",
+            email = "example@example.com",
+            emailConfirm = "example@example.com",
+            password = "Qqwerty1!",
+            verifyPassword = "Qqwerty1!",
+            firstName = "FirstName",
+            lastName = "LastName"
+        )
+        registerComponent.reduce(RegisterEvent.RegistrationClickRegisterEvent)
+        loginComponent.loginState = LoginState(username = "example", password = "Qqwerty!")
+        loginComponent.reduce(LoginEvent.LoginButtonClickLoginEven)
+        val mainComponent = MainComponent(
+            collectionRepository = LocalCollectionRepository(database),
+            itemRepository = LocalItemRepository(0, database),
+            syncRepository = SyncRepository(database, client)
+        )
+        mainComponent.reduce(MainEvent.SyncLibraryMainEvent)
+    }
 }
