@@ -1,5 +1,5 @@
 package sync.domain
 
-interface ISyncRepository {
-    suspend fun syncLibrary(): Result<Nothing>
+fun interface ISyncRepository {
+    suspend fun syncLibrary(): Result<Unit>
 }

@@ -5,5 +5,12 @@ data class RegisterDTO(
     val lastName: String,
     val email: String,
     val username: String,
-    val password: String
-)
+    val password: String,
+) {
+    fun toUser() = User(
+        email = email,
+        firstName = firstName,
+        lastName = lastName,
+        username = username
+    )
+}

@@ -1,6 +1,7 @@
 package common.data.database
 
 import auth.data.entity.User
+import collection.data.entity.ZoteroCollection
 
 class Database {
     private val users: List<User> = List(100) {
@@ -11,6 +12,10 @@ class Database {
             username = "username$it"
         )
     }
+
+    val libraries: List<ZoteroCollection> = emptyList()
+
+    var user: User? = null
 
     fun getUserByEmail(email: String): User? {
         return users.find { it.email == email }

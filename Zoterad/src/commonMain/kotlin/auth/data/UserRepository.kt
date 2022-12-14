@@ -12,7 +12,10 @@ class UserRepository(
     private val client: HttpClient = HttpClient(),
 ) : IUserRepository {
     override suspend fun login(loginRequestData: LoginDTO): Result<String> {
-        return client.login(loginRequestData)?.let { Result.success(it) } ?: Result.failure(Exception("Auth error"))
+        return client.login(loginRequestData)?.let { Result.success(it) }.also {
+            val user = client.getUser(loginRequestData.emailOrUsername)
+            database.user = user
+        } ?: Result.failure(Exception("Auth error"))
     }
 
     override suspend fun register(registerRequestData: RegisterDTO): Result<String> {
