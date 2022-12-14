@@ -7,6 +7,7 @@ import data.database.Database
 import kotlin.test.Test
 
 class RegisterTest {
+    //T10 - UC6 - SDA10 Basic Scenario
     @Test
     fun registerTestBasicFLow() {
         val database = Database()
@@ -23,7 +24,7 @@ class RegisterTest {
         )
         registerComponent.reduce(RegisterEvent.RegistrationClickRegisterEvent)
     }
-
+        //T10.2 - UC6 - SDA10 Alternate Scenario
     @Test
     fun registerFirstAlternativeFlow() {
         val database = Database()
@@ -50,6 +51,7 @@ class RegisterTest {
         )
         component.reduce(RegisterEvent.RegistrationClickRegisterEvent)
     }
+    //T10.3 - UC6 - SDA10 Alternate Scenario
 
     @Test
     fun registerSecondAlternativeFlow() {

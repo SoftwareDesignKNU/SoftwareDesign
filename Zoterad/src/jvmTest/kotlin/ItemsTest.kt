@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import sync.data.SyncRepository
 
 class ItemsTest {
+     //T7 - UC1 - SDA7 Basic 
     @Test
     fun addItemToLibraryBasic() {
         val database = Database()
@@ -23,7 +24,8 @@ class ItemsTest {
         )
         component.reduce(MainEvent.AddItemMainEvent("title", item))
     }
-
+    
+    //T7.2 - UC1 - SDA7 Alternate Scenario
     @Test
     fun addItemToLibraryAlternate() {
         val database = Database()
@@ -36,7 +38,7 @@ class ItemsTest {
         )
         component.reduce(MainEvent.AddItemMainEvent("title", item))
     }
-
+    //T9 - UC2 - SDA9 Basic Scenario
     @Test
     fun updateItemBasic() {
 //        val rep = LocalItemRepository(0)
@@ -51,7 +53,7 @@ class ItemsTest {
         )
         component.reduce(MainEvent.UpdateItemMainEvent("title", item, item))
     }
-
+     //T9.2 - UC2 - SDA9 Alternate Scenario
     @Test
     fun updateItemAlternate() {
 //        val rep = LocalItemRepository(0)
@@ -67,6 +69,7 @@ class ItemsTest {
         component.reduce(MainEvent.UpdateItemMainEvent("title", item, item))
     }
 
+      //T4 - UC4 - SDA4 Basic Scenario
     @Test
     fun deleteItemFromLibraryBasic() {
         val database = Database()
@@ -82,6 +85,7 @@ class ItemsTest {
     }
 
     @Test
+    //T4.2 - UC4 - SDA4 Alternate Scenario
     fun deleteItemFromLibraryAlternate() {
         val database = Database()
         val client = HttpClient()

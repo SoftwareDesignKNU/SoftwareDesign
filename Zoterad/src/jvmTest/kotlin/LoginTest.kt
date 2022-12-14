@@ -5,6 +5,7 @@ import data.database.Database
 import kotlin.test.Test
 
 class LoginTest {
+     //T1 - UC7 - SDA1 Basic scenario
     @Test
     fun loginBasicTest() {
         val database = Database()
@@ -28,7 +29,7 @@ class LoginTest {
         )
         component.reduce(LoginEvent.LoginButtonClickLoginEven)
     }
-
+     //T1.2 - UC7 - SDA1 Alternate scenario
     @Test
     fun loginFirstAlternativeFlowTest() {
         val database = Database()

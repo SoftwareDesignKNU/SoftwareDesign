@@ -5,6 +5,7 @@ import data.database.Database
 import org.junit.jupiter.api.Test
 
 class ResetPasswordTest {
+       //T11 - UC8 - SDA11 Basic Scenario
     @Test
     fun resetPasswordBasicFlowTest() {
         val database = Database()
@@ -26,7 +27,7 @@ class ResetPasswordTest {
             LoginEvent.PasswordForgotClickLoginEvent("example@example.com", "Qqwerty1!New")
         )
     }
-
+    //T11.2 - UC8 - SDA11 Alternate Scenario
     @Test
     fun resetPasswordAlternativeFlow() {
         val database = Database()
