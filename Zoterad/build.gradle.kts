@@ -27,25 +27,18 @@ kotlin {
         withJava()
     }
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-            }
-        }
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test")) // This brings all the platform dependencies automatically
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
             }
         }
     }
