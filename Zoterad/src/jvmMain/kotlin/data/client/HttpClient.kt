@@ -9,7 +9,7 @@ import kotlin.random.Random
 typealias JWT = String
 
 class HttpClient {
-    private val users: MutableMap<RegisterDTO, JWT> = List(3) {
+    private val users: MutableMap<RegisterDTO, JWT> = List(5) {
         RegisterDTO(
             firstName = "first name $it",
             lastName = "last name $it",

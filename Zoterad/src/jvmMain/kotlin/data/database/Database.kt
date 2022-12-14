@@ -4,7 +4,7 @@ import auth.data.entity.User
 import collection.data.entity.ZoteroCollection
 
 class Database {
-    private val users: List<User> = List(100) {
+    private val users: List<User> = List(3) {
         User(
             firstName = "first name $it",
             lastName = "last name $it",

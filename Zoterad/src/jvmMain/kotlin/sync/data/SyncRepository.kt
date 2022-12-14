@@ -5,8 +5,8 @@ import data.database.Database
 import sync.domain.ISyncRepository
 
 class SyncRepository(
-    private val database: Database = Database(),
-    private val client: HttpClient = HttpClient(),
+    private val database: Database,
+    private val client: HttpClient,
 ) : ISyncRepository {
     override suspend fun syncLibrary(): Result<Unit> {
         try {

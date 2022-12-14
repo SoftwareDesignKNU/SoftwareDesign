@@ -26,14 +26,21 @@ class MainComponent(
                 }
                 is MainEvent.DeleteCollectionMainEvent -> TODO()
                 is MainEvent.DeleteItemMainEvent -> {
-                    if(itemRepository.deleteItem(mainEvent.item).isSuccess) {
+                    itemRepository.deleteItem(mainEvent.item).onSuccess {
                         mainState.collections[mainState.collectionIndex].items.removeAt(0)
                     }
                 }
                 is MainEvent.RenameCollectionMainEvent -> TODO()
-                MainEvent.SyncLibraryMainEvent -> TODO()
+                MainEvent.SyncLibraryMainEvent -> {
+                    syncRepository.syncLibrary()
+                        .onSuccess {
+                            println("Library successfully synced")
+                        }.onFailure {
+                            it.printStackTrace()
+                        }
+                }
                 is MainEvent.UpdateItemMainEvent -> {
-                    if(itemRepository.updateItem(mainEvent.collectionTitle, mainEvent.item).isSuccess) {
+                    if (itemRepository.updateItem(mainEvent.collectionTitle, mainEvent.item).isSuccess) {
                         mainState.collections[mainState.collectionIndex].items.removeAt(0)
                         mainState.collections[mainState.collectionIndex].items.add(mainEvent.item)
                     }

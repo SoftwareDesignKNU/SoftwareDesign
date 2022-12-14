@@ -9,7 +9,7 @@ import item.domain.ItemRepository
 
 class LocalItemRepository(
     collectionIndex: Int,
-    database: Database = Database(),
+    database: Database,
 ) : ItemRepository {
     override suspend fun getItemByTitle(title: String): Result<ZoteroItems> {
         println("LocalRepository: getItemByTitle(title)")

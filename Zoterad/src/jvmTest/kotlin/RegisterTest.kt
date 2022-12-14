@@ -2,12 +2,16 @@ import auth.data.UserRepository
 import auth.presentation.RegisterComponent
 import auth.presentation.RegisterEvent
 import auth.presentation.RegisterState
+import data.client.HttpClient
+import data.database.Database
 import kotlin.test.Test
 
 class RegisterTest {
     @Test
     fun registerTestBasicFLow() {
-        val registerComponent = RegisterComponent(UserRepository())
+        val database = Database()
+        val client = HttpClient()
+        val registerComponent = RegisterComponent(UserRepository(database, client))
         registerComponent.registerState = RegisterState(
             username = "example",
             email = "example@example.com",
@@ -22,7 +26,9 @@ class RegisterTest {
 
     @Test
     fun registerFirstAlternativeFlow() {
-        val component = RegisterComponent(UserRepository())
+        val database = Database()
+        val client = HttpClient()
+        val component = RegisterComponent(UserRepository(database, client))
         component.registerState = RegisterState(
             username = "example",
             email = "example@example.com",
@@ -47,7 +53,9 @@ class RegisterTest {
 
     @Test
     fun registerSecondAlternativeFlow() {
-        val component = RegisterComponent(UserRepository())
+        val database = Database()
+        val client = HttpClient()
+        val component = RegisterComponent(UserRepository(database, client))
         component.registerState = RegisterState(
             username = "example",
             email = "example@example.com",

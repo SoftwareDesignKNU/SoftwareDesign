@@ -8,8 +8,8 @@ import auth.data.entity.User
 import auth.domain.IUserRepository
 
 class UserRepository(
-    private val database: Database = Database(),
-    private val client: HttpClient = HttpClient(),
+    private val database: Database,
+    private val client: HttpClient,
 ) : IUserRepository {
     override suspend fun login(loginRequestData: LoginDTO): Result<String> {
         println("UserRepository: login($loginRequestData)")

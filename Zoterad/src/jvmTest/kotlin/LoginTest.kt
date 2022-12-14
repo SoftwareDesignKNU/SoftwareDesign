@@ -1,11 +1,15 @@
 import auth.data.UserRepository
 import auth.presentation.*
+import data.client.HttpClient
+import data.database.Database
 import kotlin.test.Test
 
 class LoginTest {
     @Test
     fun loginBasicTest() {
-        val userRepository = UserRepository()
+        val database = Database()
+        val client = HttpClient()
+        val userRepository = UserRepository(database, client)
         val registerComponent = RegisterComponent(userRepository)
         registerComponent.registerState = RegisterState(
             username = "example",
@@ -27,7 +31,9 @@ class LoginTest {
 
     @Test
     fun loginFirstAlternativeFlowTest() {
-        val userRepository = UserRepository()
+        val database = Database()
+        val client = HttpClient()
+        val userRepository = UserRepository(database, client)
         val registerComponent = RegisterComponent(userRepository)
         registerComponent.registerState = RegisterState(
             username = "example",

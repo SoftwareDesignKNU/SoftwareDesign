@@ -1,11 +1,15 @@
 import auth.data.UserRepository
 import auth.presentation.*
+import data.client.HttpClient
+import data.database.Database
 import org.junit.jupiter.api.Test
 
 class ResetPasswordTest {
     @Test
     fun resetPasswordBasicFlowTest() {
-        val userRepository = UserRepository()
+        val database = Database()
+        val client = HttpClient()
+        val userRepository = UserRepository(database, client)
         val registerComponent = RegisterComponent(userRepository)
         registerComponent.registerState = RegisterState(
             username = "example",
@@ -25,7 +29,9 @@ class ResetPasswordTest {
 
     @Test
     fun resetPasswordAlternativeFlow() {
-        val userRepository = UserRepository()
+        val database = Database()
+        val client = HttpClient()
+        val userRepository = UserRepository(database, client)
         val registerComponent = RegisterComponent(userRepository)
         registerComponent.registerState = RegisterState(
             username = "example",

@@ -5,7 +5,7 @@ import collection.domain.ICollectionRepository
 import data.database.Database
 
 class LocalCollectionRepository(
-    database: Database = Database()
+    database: Database
 ) : ICollectionRepository {
     override suspend fun getCollection(title: String): Result<ZoteroCollection> {
         TODO("Not yet implemented")
