@@ -13,7 +13,7 @@ class LocalCollectionRepository(
         return Result.success(
             ZoteroCollection(
                 "title",
-                mutableListOf(ZoteroItem.ComplexZoteroItem(hashMapOf("Language" to ZoteroItem.SimpleZoteroItem("English"))))
+                mutableListOf(ZoteroItem.ComplexZoteroItem(hashMapOf("Language" to ZoteroItem.ZoteroItemField("English"))))
             )
         )
     }

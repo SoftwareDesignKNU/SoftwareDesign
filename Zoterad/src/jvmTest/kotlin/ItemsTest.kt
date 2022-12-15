@@ -16,10 +16,10 @@ class ItemsTest {
         val client = HttpClient()
         val item = ZoteroItem.ComplexZoteroItem(
             values = hashMapOf(
-                "title" to ZoteroItem.SimpleZoteroItem("title"),
+                "title" to ZoteroItem.ZoteroItemField("title"),
                 "people" to ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "author" to ZoteroItem.SimpleZoteroItem("Me!")
+                        "author" to ZoteroItem.ZoteroItemField("Me!")
                     )
                 )
             )
@@ -39,10 +39,10 @@ class ItemsTest {
         val client = HttpClient()
         val item = ZoteroItem.ComplexZoteroItem(
             values = hashMapOf(
-                "title" to ZoteroItem.SimpleZoteroItem("title"),
+                "title" to ZoteroItem.ZoteroItemField("title"),
                 "people" to ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "author" to ZoteroItem.SimpleZoteroItem("Me!")
+                        "author" to ZoteroItem.ZoteroItemField("Me!")
                     )
                 )
             )
@@ -64,10 +64,10 @@ class ItemsTest {
         val client = HttpClient()
         val item = ZoteroItem.ComplexZoteroItem(
             values = hashMapOf(
-                "title" to ZoteroItem.SimpleZoteroItem("title"),
+                "title" to ZoteroItem.ZoteroItemField("title"),
                 "people" to ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "author" to ZoteroItem.SimpleZoteroItem("Me!")
+                        "author" to ZoteroItem.ZoteroItemField("Me!")
                     )
                 )
             )
@@ -89,10 +89,10 @@ class ItemsTest {
         val client = HttpClient()
         val item = ZoteroItem.ComplexZoteroItem(
             values = hashMapOf(
-                "title" to ZoteroItem.SimpleZoteroItem("title"),
+                "title" to ZoteroItem.ZoteroItemField("title"),
                 "people" to ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "author" to ZoteroItem.SimpleZoteroItem("Me!")
+                        "author" to ZoteroItem.ZoteroItemField("Me!")
                     )
                 )
             )
@@ -112,10 +112,10 @@ class ItemsTest {
         val client = HttpClient()
         val item = ZoteroItem.ComplexZoteroItem(
             values = hashMapOf(
-                "title" to ZoteroItem.SimpleZoteroItem("title"),
+                "title" to ZoteroItem.ZoteroItemField("title"),
                 "people" to ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "author" to ZoteroItem.SimpleZoteroItem("Me!")
+                        "author" to ZoteroItem.ZoteroItemField("Me!")
                     )
                 )
             )
@@ -136,10 +136,10 @@ class ItemsTest {
         val client = HttpClient()
         val item = ZoteroItem.ComplexZoteroItem(
             values = hashMapOf(
-                "title" to ZoteroItem.SimpleZoteroItem("title"),
+                "title" to ZoteroItem.ZoteroItemField("title"),
                 "people" to ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "author" to ZoteroItem.SimpleZoteroItem("Me!")
+                        "author" to ZoteroItem.ZoteroItemField("Me!")
                     )
                 )
             )

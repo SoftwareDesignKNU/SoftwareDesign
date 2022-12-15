@@ -21,12 +21,12 @@ class Database {
             items = mutableListOf(
                 ZoteroItem.ComplexZoteroItem(
                     hashMapOf(
-                        "title" to ZoteroItem.SimpleZoteroItem("Differential Geometry"),
-                        "language" to ZoteroItem.SimpleZoteroItem("English"),
+                        "title" to ZoteroItem.ZoteroItemField("Differential Geometry"),
+                        "language" to ZoteroItem.ZoteroItemField("English"),
                         "people" to ZoteroItem.ComplexZoteroItem(
                             hashMapOf(
-                                "author" to ZoteroItem.SimpleZoteroItem("Arystan"),
-                                "helper" to ZoteroItem.SimpleZoteroItem("Shokan")
+                                "author" to ZoteroItem.ZoteroItemField("Arystan"),
+                                "helper" to ZoteroItem.ZoteroItemField("Shokan")
                             )
                         )
                     )
