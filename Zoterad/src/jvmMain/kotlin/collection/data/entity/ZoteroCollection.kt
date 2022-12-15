@@ -4,5 +4,5 @@ import item.data.entity.item.ZoteroItem
 
 data class ZoteroCollection(
     val title: String,
-    val items: MutableList<ZoteroItem>
+    val items: MutableList<ZoteroItem>,
 )

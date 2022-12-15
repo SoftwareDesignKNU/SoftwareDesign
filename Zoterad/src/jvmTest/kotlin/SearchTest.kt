@@ -46,9 +46,9 @@ class SearchTest {
             matchAll = true,
             searchQueries = listOf(
                 SearchQuery(
-                    searchField = "language",
-                    condition = Condition.Contains,
-                    query = "Eng"
+                    searchField = "author",
+                    condition = Condition.Is,
+                    query = "Arystan"
                 )
             )
         )

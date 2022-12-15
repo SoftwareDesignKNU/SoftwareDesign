@@ -10,7 +10,12 @@ class LocalCollectionRepository(
 ) : ICollectionRepository {
     override suspend fun getCollection(title: String): Result<ZoteroCollection> {
         println("LocalCollectionRepository: getCollection(title)")
-        return Result.success(ZoteroCollection("title", mutableListOf(Book(bookRelatedSubData = BookRelatedSubData()))))
+        return Result.success(
+            ZoteroCollection(
+                "title",
+                mutableListOf(ZoteroItem.ComplexZoteroItem(hashMapOf("Language" to ZoteroItem.SimpleZoteroItem("English"))))
+            )
+        )
     }
 
     override suspend fun addCollection(title: String): Result<Unit> {
@@ -34,19 +39,8 @@ class LocalCollectionRepository(
 
     override suspend fun getItemByTitle(zoteroItemTitle: String): Result<ZoteroItem> {
         database.libraries.forEach {
-            return it.items.find { zoteroItem ->
-                when (zoteroItem) {
-                    is Book -> {
-                        zoteroItem.bookRelatedSubData.itemSubData.title == zoteroItemTitle
-                    }
-                    is BookSection -> {
-                        zoteroItem.bookRelatedSubData.itemSubData.title == zoteroItemTitle
-                    }
-                    is Document -> {
-                        zoteroItem.itemSubData.title == zoteroItemTitle
-                    }
-                    else -> false
-                }
+            it.items.find { zoteroItem ->
+                zoteroItem is ZoteroItem.ComplexZoteroItem && zoteroItem.values["title"]?.equals(zoteroItemTitle) == true
             }?.let { Result.success(it) } ?: Result.failure(Exception("There is not such item"))
         }
         return Result.failure(Exception("There is not such item"))

@@ -2,10 +2,7 @@ package data.database
 
 import auth.data.entity.User
 import collection.data.entity.ZoteroCollection
-import item.data.entity.item.Book
-import item.data.entity.item.BookRelatedSubData
-import item.data.entity.item.Document
-import item.data.entity.item.ItemSubData
+import item.data.entity.item.ZoteroItem
 
 class Database {
     private val users: List<User> = List(3) {
@@ -22,16 +19,17 @@ class Database {
         ZoteroCollection(
             title = "Differential Geometry",
             items = mutableListOf(
-                Book(
-                    bookRelatedSubData = BookRelatedSubData(
-                        itemSubData = ItemSubData(
-                            title = "Differential Geometry"
+                ZoteroItem.ComplexZoteroItem(
+                    hashMapOf(
+                        "title" to ZoteroItem.SimpleZoteroItem("Differential Geometry"),
+                        "language" to ZoteroItem.SimpleZoteroItem("English"),
+                        "people" to ZoteroItem.ComplexZoteroItem(
+                            hashMapOf(
+                                "author" to ZoteroItem.SimpleZoteroItem("Arystan"),
+                                "helper" to ZoteroItem.SimpleZoteroItem("Shokan")
+                            )
                         )
                     )
-                ),
-                Document(
-                    language = "English",
-                    itemSubData = ItemSubData()
                 )
             )
         )

@@ -2,16 +2,13 @@ import collection.data.LocalCollectionRepository
 import data.client.HttpClient
 import data.database.Database
 import item.data.LocalItemRepository
-import item.data.entity.item.Book
-import item.data.entity.item.BookRelatedSubData
-import item.data.entity.item.ZoteroItem
 import main.main.MainComponent
 import main.main.MainEvent
 import org.junit.jupiter.api.Test
 import sync.data.SyncRepository
 
 class CollectionTest {
-      //T2 - UC3 - SDA2 Basic Scenario
+    //T2 - UC3 - SDA2 Basic Scenario
     @Test
     fun createCollectionBasic() {
         val database = Database()
@@ -24,7 +21,8 @@ class CollectionTest {
         )
         component.reduce(MainEvent.AddCollectionMainEvent(title))
     }
-     //T2.2 - UC3 - SDA2 Alternate Scenario
+
+    //T2.2 - UC3 - SDA2 Alternate Scenario
     @Test
     fun createCollectionAlternate() {
         val database = Database()

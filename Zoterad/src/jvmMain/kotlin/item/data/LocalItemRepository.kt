@@ -1,7 +1,6 @@
 package item.data
 
 import data.database.Database
-import item.data.entity.Condition
 import item.data.entity.SearchQuery
 import item.data.entity.item.*
 import item.domain.ItemRepository
@@ -13,18 +12,7 @@ class LocalItemRepository(
     override suspend fun getItemsByTitle(title: String): Result<List<ZoteroItem>> {
         println("LocalRepository: getItemByTitle(title)")
         return Result.success(database.libraries[collectionIndex].items.filter { zoteroItem ->
-            when (zoteroItem) {
-                is Book -> {
-                    zoteroItem.bookRelatedSubData.itemSubData.title == title
-                }
-                is BookSection -> {
-                    zoteroItem.bookRelatedSubData.itemSubData.title == title
-                }
-                is Document -> {
-                    zoteroItem.itemSubData.title == title
-                }
-                else -> false
-            }
+            zoteroItem is ZoteroItem.ComplexZoteroItem && zoteroItem.values["title"]?.equals(title) == true
         })
     }
 
@@ -44,38 +32,31 @@ class LocalItemRepository(
     }
 
     override suspend fun searchItem(matchAll: Boolean, searchQueries: List<SearchQuery>): Result<List<ZoteroItem>> {
-        return try {
-            Result.success(database.libraries[collectionIndex].items.filter { zoteroItem ->
-                matchAll && searchQueries.all { searchQuery ->
-                    when (searchQuery.condition) {
-                        Condition.Is -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
-                            ?.toString()?.equals(searchQuery.query) == true
-                        Condition.IsNot -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
-                            ?.toString()?.equals(searchQuery.query) != true
-                        Condition.BeginsWith -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
-                            ?.get(zoteroItem)?.toString()?.startsWith(searchQuery.query) == true
-                        Condition.Contains -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
-                            ?.toString()?.contains(searchQuery.query) == true
-                        Condition.DoesNotContain -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
-                            ?.get(zoteroItem)?.toString()?.contains(searchQuery.query) != true
+        try {
+            return Result.success(
+                database
+                    .libraries
+                    .flatMap { collection ->
+                        collection
+                            .items
+                            .filter { item ->
+                                if (matchAll) {
+                                    searchQueries
+                                        .all { query ->
+                                            item.comparison(query)
+                                        }
+                                } else {
+                                    searchQueries
+                                        .any { query ->
+                                            item.comparison(query)
+                                        }
+                                }
+                            }
                     }
-                }
-                !matchAll && searchQueries.any { searchQuery ->
-                    when (searchQuery.condition) {
-                        Condition.Is -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
-                            ?.toString()?.equals(searchQuery.query) == true
-                        Condition.IsNot -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
-                            ?.toString()?.equals(searchQuery.query) != true
-                        Condition.BeginsWith -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
-                            ?.get(zoteroItem)?.toString()?.startsWith(searchQuery.query) == true
-                        Condition.Contains -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }?.get(zoteroItem)
-                            ?.toString()?.contains(searchQuery.query) == true
-                        Condition.DoesNotContain -> zoteroItem::class.java.fields.find { it.name.contains(searchQuery.searchField) }
-                            ?.get(zoteroItem)?.toString()?.contains(searchQuery.query) != true
-                    }                }
-            })
+            )
         } catch (e: Exception) {
-            Result.failure(e)
+            return Result.failure(e)
         }
     }
 }
+
