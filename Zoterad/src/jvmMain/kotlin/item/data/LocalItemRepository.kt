@@ -32,30 +32,17 @@ class LocalItemRepository(
     }
 
     override suspend fun searchItem(matchAll: Boolean, searchQueries: List<SearchQuery>): Result<List<ZoteroItem>> {
-        try {
-            return Result.success(
-                database
-                    .libraries
-                    .flatMap { collection ->
-                        collection
-                            .items
-                            .filter { item ->
-                                if (matchAll) {
-                                    searchQueries
-                                        .all { query ->
-                                            item.comparison(query)
-                                        }
-                                } else {
-                                    searchQueries
-                                        .any { query ->
-                                            item.comparison(query)
-                                        }
-                                }
-                            }
+        return try {
+            Result.success(
+                database.libraries.flatMap { collection ->
+                    collection.items.filter { item ->
+                        if (matchAll) searchQueries.all { query -> item.search(query) }
+                        else searchQueries.any { query -> item.search(query) }
                     }
+                }
             )
         } catch (e: Exception) {
-            return Result.failure(e)
+            Result.failure(e)
         }
     }
 }
