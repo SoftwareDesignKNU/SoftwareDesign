@@ -9,7 +9,7 @@ sealed interface ZoteroItem {
 
     private fun compare(
         fieldName: String? = null,
-        predicate: (fieldName: String, ZoteroItemField) -> Boolean,
+        predicate: (String, ZoteroItemField) -> Boolean,
     ): Boolean {
         return when (this) {
             is ComplexZoteroItem -> {
