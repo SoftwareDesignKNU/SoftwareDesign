@@ -35,6 +35,7 @@ class CollectionTest {
         component.reduce(MainEvent.AddCollectionMainEvent(""))
     }
 
+    //T3 - UC5 - SDA3 Basic Scenario
     @Test
     fun deleteCollectionBasic() {
         val database = Database()
@@ -47,6 +48,7 @@ class CollectionTest {
         component.reduce(MainEvent.DeleteCollectionMainEvent("title"))
     }
 
+    //T3.2 - UC5 - SDA3 Alternate Scenario
     @Test
     fun deleteCollectionAlternate() {
         val database = Database()
